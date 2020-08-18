@@ -1,0 +1,41 @@
+#Visualizações iniciais
+
+plot(treino$venda, type="l") #Gráfico das vendas na base de treino
+View(treino)
+
+#Testes de correlações
+cor(treino$venda, treino$margem) #baixa correlação
+cor(treino$venda, treino$desconto) #correlação alta
+
+Testes de gráficos simples
+plot(treino$venda~treino$desconto) #Venda por desconto
+plot(treino1$venda~treino1$`mesagosto`) #Venda pela dummy do mês de agosto
+
+#cor(treino)
+#treino1 <- treino
+
+#Criação de Dummies
+install.packages("dummies") #instalação do pacote
+library(dummies) #Ativação do pacote
+
+#Dummy para as datas
+dummy(treino$date)
+treino1 <- cbind(treino, dummy(treino$date))
+
+#Dummy para os meses
+mes_dummy <- dummy(treino$mes)
+treino1 <- cbind(treino1, mes_dummy)
+mes_dummyteste <- dummy(teste$mes)
+teste1 <- cbind(teste1, mes_dummyteste)
+
+#Dummy para os dias de semana
+diasemana_dummy <- dummy(treino$weekday)
+treino1 <- cbind(treino1, diasemana_dummy)
+diasemana_dummy <- dummy(teste$weekday)
+teste1 <- cbind(teste, diasemana_dummy)
+
+
+
+
+
+plot(treino1$venda, type="l")
