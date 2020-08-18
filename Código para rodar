@@ -1,0 +1,26 @@
+
+library(party)
+library(e1071)
+library(caret)
+
+#Separação das bases
+treino <- read.csv("https://raw.githubusercontent.com/diogenesjusto/FIAP/master/SHIFT/202007/Desafio/train_BABA.csv")
+teste <- read.csv("https://raw.githubusercontent.com/diogenesjusto/FIAP/master/SHIFT/202007/Desafio/test_BABA.csv")
+
+
+#Modelagem
+mod <- lm(venda~margem+desconto+`weekdaysegunda-feira`+`weekdayter?a-feira` + `weekdayquarta-feira` + mesagosto , data=treino1)
+
+summary(mod)
+
+#Validação de teste 
+p<-predict(mod, newdata=teste1)
+
+
+#Construção do dataframe de submissão
+df <- as.data.frame(cbind(1:31,p))
+names(df)<-c("id","venda")
+
+write.table(df, 'predict.csv', row.names = FALSE, col.names = FALSE, sep=",")
+
+baba$data <- as.Date(as.character(baba$date), "%Y%m%d")
